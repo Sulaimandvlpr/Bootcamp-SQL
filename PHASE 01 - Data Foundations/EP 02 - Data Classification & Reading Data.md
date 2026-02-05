@@ -1,91 +1,80 @@
 # Data Classification & Reading Data
 
-Data Scientist tidak hanya "melihat" data, tetapi harus mampu "membaca" struktur dan sifatnya. Klasifikasi data menentukan teknik statistik yang digunakan dan tipe data yang akan didefinisikan dalam tabel SQL.
+Sebagai seorang *Data Scientist*, kamu tidak hanya "melihat" data, tetapi harus mampu "membaca" struktur dan sifatnya. Kemampuan ini adalah syarat mutlak sebelum kamu merancang tabel di SQL. Mengapa? Karena komputer tidak tahu apakah sebuah angka mewakili harga (yang bisa dijumlahkan) atau mewakili kode pos (yang tidak boleh dijumlahkan).
 
 ---
 
-## 1. Klasifikasi Data Berdasarkan Sifat (Statistical Type)
+## 1. Klasifikasi Berdasarkan Sifat (Statistical Perspectives)
 
-Secara statistik, data dibagi menjadi dua kategori besar: Kualitatif dan Kuantitatif.
+Dalam statistika industri, kita membagi data menjadi dua kelompok besar. Mari kita bedah satu per satu layaknya seorang mentor.
 
 ### A. Data Kualitatif (Categorical)
 
-Data yang mendeskripsikan karakteristik atau label. Tidak dapat dihitung secara matematis (seperti ditambah atau dibagi).
+Data ini mendeskripsikan "kualitas" atau "karakteristik" suatu objek. Data ini berupa label dan **tidak bisa dikenakan operasi matematika** (kamu tidak bisa menghitung rata-rata dari "Warna Mata").
 
-* **Nominal**: Data label tanpa urutan atau tingkatan.
-* *Contoh*: Jenis Kelamin (Pria/Wanita), Kategori Produk (Elektronik, Fashion), Metode Pembayaran (OVO, GoPay, Transfer).
-* *Case*: Di SQL, kita menggunakan ini untuk pengelompokan (`GROUP BY`).
+* **Nominal (Tanpa Urutan)**: Data yang hanya berfungsi sebagai label pembeda. Tidak ada tingkatan di dalamnya.
+* *Contoh*: Jenis Kelamin, Nama Kota, Metode Pembayaran (Cash, QRIS, Debet).
+* *Mentor Note*: Ingat, Nominal berasal dari kata "Name". Hanya nama, tidak ada yang lebih tinggi atau rendah.
 
 
-* **Ordinal**: Data label yang memiliki urutan atau peringkat logis.
-* *Contoh*: Tingkat Kepuasan (Puas, Cukup, Tidak Puas), Level Keanggotaan (Bronze, Silver, Gold).
-* *Case*: Penting untuk analisis tren peningkatan layanan.
+* **Ordinal (Dengan Urutan)**: Data kategori yang memiliki tingkatan atau urutan logis.
+* *Contoh*: Tingkat Pendidikan (SD, SMP, SMA), Level Member (Bronze, Gold, Platinum).
+* *Mentor Note*: Meskipun ini bukan angka, urutannya sangat penting untuk analisis progres atau loyalitas.
 
 
 
 ### B. Data Kuantitatif (Numerical)
 
-Data yang berupa angka dan dapat dikenakan operasi matematika.
+Data yang berupa angka dan **bisa dihitung secara matematis**.
 
-* **Diskrit**: Data angka bulat yang didapat dari hasil perhitungan (*counting*).
-* *Contoh*: Jumlah anak, Jumlah transaksi per hari, Stok barang.
-* *Note*: Tidak mungkin ada "1.5 transaksi".
-
-
-* **Kontinu**: Data angka yang dapat memiliki nilai desimal dan didapat dari hasil pengukuran (*measurement*).
-* *Contoh*: Suhu (36.5°C), Harga produk, Berat badan, Pendapatan.
+* **Diskrit (Hasil Menghitung)**: Angkanya pasti bulat dan tidak bisa dipecah menjadi desimal.
+* *Contoh*: Jumlah anak, jumlah stok barang di gudang, jumlah kursi di kelas.
+* *Mentor Note*: Kamu tidak mungkin punya 2,5 anak, kan? Jika datanya pasti bulat, itu adalah Diskrit.
 
 
+* **Kontinu (Hasil Mengukur)**: Angka yang bisa memiliki nilai desimal tak terhingga dalam rentang tertentu.
+* *Contoh*: Suhu badan (36,5°C), Berat badan (60,75 kg), Jarak tempuh (10,2 km).
+* *Mentor Note*: Kontinu biasanya berasal dari alat ukur (timbangan, penggaris, termometer).
 
----
 
-## 2. Klasifikasi Data Berdasarkan Struktur (Format Type)
-
-Dalam arsitektur data industri, kita mengenal tiga bentuk struktur penyimpanan:
-
-| Jenis Struktur | Penjelasan | Teknologi Terkait |
-| --- | --- | --- |
-| **Structured** | Data memiliki skema tetap, rapi dalam baris dan kolom. | **RDBMS (SQL)** seperti PostgreSQL, MySQL. |
-| **Semi-Structured** | Tidak memiliki tabel kaku, tapi memiliki tag/label penanda struktur. | **JSON**, XML, NoSQL (MongoDB). |
-| **Unstructured** | Data mentah tanpa pola yang terorganisir. | Gambar, Video, Audio, Dokumen PDF mentah. |
 
 ---
 
-## 3. Sumber-Sumber Data (Data Sources)
+## 2. Klasifikasi Berdasarkan Struktur (Technical Perspectives)
 
-Dari mana data berasal? Di industri, seorang Data Scientist mengambil data dari:
+Di industri, data dikirim dalam berbagai format. Kamu harus mengenali "wadahnya":
 
-1. **Internal Database**: Database transaksional perusahaan (misal: Data penjualan di MySQL).
-2. **External API**: Mengambil data dari pihak ketiga (misal: Data cuaca dari OpenWeatherMap API).
-3. **Web Scraping**: Mengekstraksi data dari situs web (misal: Memantau harga kompetitor di marketplace).
-4. **IoT & Logs**: Data dari sensor perangkat keras atau catatan aktivitas server.
-5. **Open Data**: Dataset publik untuk riset (misal: **Kaggle**, **BPS**, **Google Dataset Search**).
+1. **Structured Data (Terstruktur)**: Data yang sudah rapi dalam kolom dan baris. Inilah yang kita olah di **SQL**. Contoh: Tabel Excel, Database MySQL.
+2. **Semi-Structured Data**: Tidak memiliki tabel kaku, tapi punya penanda (tag). Contoh: **JSON** (yang sering digunakan di API) dan XML.
+3. **Unstructured Data**: Data mentah yang tidak punya pola tetap. Contoh: Video TikTok, rekaman suara, foto produk, atau file PDF.
 
 ---
 
-## 4. Case Study: Membaca Data Transaksi E-Commerce
+## 3. Sesi Mentor: Studi Kasus "Deep Dive" E-Commerce
 
-Perhatikan baris data berikut dan identifikasi jenisnya:
+Mari kita bedah satu baris transaksi nyata di dunia kerja. Perhatikan kalimat ini:
 
-> "Seorang pelanggan Gold membeli 2 unit smartphone seharga Rp5.500.000 dengan metode kartu kredit."
+> **"Pelanggan level Platinum membeli 3 unit laptop seharga Rp15.450.000,50 menggunakan kartu kredit."**
 
-* **Gold**: Data Kualitatif (Ordinal) - Tingkat keanggotaan.
-* **2 unit**: Data Kuantitatif (Diskrit) - Jumlah barang (hasil hitung).
-* **Rp5.500.000**: Data Kuantitatif (Kontinu) - Nilai moneter (bisa memiliki desimal).
-* **Kartu Kredit**: Data Kualitatif (Nominal) - Label metode pembayaran.
-* **Smartphone**: Data Kualitatif (Nominal) - Label kategori.
+Sebagai pengolah data, begini cara kamu membacanya:
 
----
-
-## 5. Mengapa Ini Penting di SQL?
-
-Jika Anda salah mengklasifikasikan data saat membuat tabel:
-
-1. Anda menyimpan angka harga sebagai **String (Teks)**: Anda tidak akan bisa menghitung Total Pendapatan menggunakan fungsi `SUM()`.
-2. Anda menyimpan data kategori sebagai **Angka**: Laporan Anda akan membingungkan (misal: Kategori '1' padahal maksudnya 'Elektronik').
+* **Platinum**: Ini adalah **Kualitatif Ordinal**. Mengapa? Karena Platinum adalah level member. Ada urutan jelas: Platinum lebih tinggi dari Gold. Di database, kita butuh ini untuk memberikan diskon khusus member prioritas.
+* **3 unit**: Ini adalah **Kuantitatif Diskrit**. Mengapa? Karena laptop dihitung per satuan. Di database, kolom ini akan bertipe `INTEGER`. Kamu bisa menjumlahkannya dengan fungsi `SUM()` untuk melihat total stok yang keluar.
+* **Rp15.450.000,50**: Ini adalah **Kuantitatif Kontinu**. Mengapa? Karena ada nilai desimal (50 perak). Meskipun terlihat bulat di aplikasi, nilai uang secara sifat bisa pecah (misal setelah kena pajak atau diskon persenan). Di SQL, kita simpan dengan tipe `DECIMAL` atau `FLOAT`.
+* **Kartu Kredit**: Ini adalah **Kualitatif Nominal**. Mengapa? Ini hanya label metode bayar. Tidak ada urutan. Kita butuh ini untuk menganalisis bank mana yang paling banyak bekerja sama dengan perusahaan kita.
+* **Laptop**: Ini adalah **Kualitatif Nominal**. Label kategori produk. Gunanya untuk pengelompokan laporan penjualan per kategori (`GROUP BY category`).
 
 ---
 
-### Kesimpulan
+## 4. Mengapa Kamu Harus Paham Ini? (Penerapan SQL)
 
-Kemampuan mengklasifikasikan data adalah langkah awal validasi data (*Data Profiling*). Tanpa pemahaman ini, proses pembersihan data (*Data Cleansing*) akan menjadi sangat sulit.
+Kesalahan klasifikasi di awal akan membuat *query* SQL-mu berantakan:
+
+1. Jika **Harga** kamu simpan sebagai **Nominal (Teks)**, kamu tidak akan pernah bisa menghitung rata-rata pendapatan. SQL akan menganggapnya sebagai "tulisan", bukan "angka".
+2. Jika **Level Member** kamu simpan tanpa aturan **Ordinal**, kamu akan kesulitan membuat laporan performa member dari yang paling rendah ke yang paling tinggi.
+
+---
+
+### Kesimpulan Mentor
+
+Data adalah bahan baku. Jika kamu salah mengenali bahan bakunya, hasil "masakan" (analisis) kamu akan salah rasa. Selalu tanyakan: *"Apakah angka ini bisa saya bagi?"* atau *"Apakah label ini punya urutan?"* sebelum kamu membuat tabel di database.
