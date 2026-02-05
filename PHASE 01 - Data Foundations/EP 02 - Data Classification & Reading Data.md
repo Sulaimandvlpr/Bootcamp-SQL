@@ -13,13 +13,13 @@ Dalam statistika industri, kita membagi data menjadi dua kelompok besar. Mari ki
 Data ini mendeskripsikan "kualitas" atau "karakteristik" suatu objek. Data ini berupa label dan **tidak bisa dikenakan operasi matematika** (kamu tidak bisa menghitung rata-rata dari "Warna Mata").
 
 * **Nominal (Tanpa Urutan)**: Data yang hanya berfungsi sebagai label pembeda. Tidak ada tingkatan di dalamnya.
-* *Contoh*: Jenis Kelamin, Nama Kota, Metode Pembayaran (Cash, QRIS, Debet).
-* *Mentor Note*: Ingat, Nominal berasal dari kata "Name". Hanya nama, tidak ada yang lebih tinggi atau rendah.
+    * *Contoh*: Jenis Kelamin, Nama Kota, Metode Pembayaran (Cash, QRIS, Debet).
+    * *Mentor Note*: Ingat, Nominal berasal dari kata "Name". Hanya nama, tidak ada yang lebih tinggi atau rendah.
 
 
 * **Ordinal (Dengan Urutan)**: Data kategori yang memiliki tingkatan atau urutan logis.
-* *Contoh*: Tingkat Pendidikan (SD, SMP, SMA), Level Member (Bronze, Gold, Platinum).
-* *Mentor Note*: Meskipun ini bukan angka, urutannya sangat penting untuk analisis progres atau loyalitas.
+    * *Contoh*: Tingkat Pendidikan (SD, SMP, SMA), Level Member (Bronze, Gold, Platinum).
+    * *Mentor Note*: Meskipun ini bukan angka, urutannya sangat penting untuk analisis progres atau loyalitas.
 
 
 
@@ -28,13 +28,13 @@ Data ini mendeskripsikan "kualitas" atau "karakteristik" suatu objek. Data ini b
 Data yang berupa angka dan **bisa dihitung secara matematis**.
 
 * **Diskrit (Hasil Menghitung)**: Angkanya pasti bulat dan tidak bisa dipecah menjadi desimal.
-* *Contoh*: Jumlah anak, jumlah stok barang di gudang, jumlah kursi di kelas.
-* *Mentor Note*: Kamu tidak mungkin punya 2,5 anak, kan? Jika datanya pasti bulat, itu adalah Diskrit.
+    * *Contoh*: Jumlah anak, jumlah stok barang di gudang, jumlah kursi di kelas.
+    * *Mentor Note*: Kamu tidak mungkin punya 2,5 anak, kan? Jika datanya pasti bulat, itu adalah Diskrit.
 
 
 * **Kontinu (Hasil Mengukur)**: Angka yang bisa memiliki nilai desimal tak terhingga dalam rentang tertentu.
-* *Contoh*: Suhu badan (36,5°C), Berat badan (60,75 kg), Jarak tempuh (10,2 km).
-* *Mentor Note*: Kontinu biasanya berasal dari alat ukur (timbangan, penggaris, termometer).
+    * *Contoh*: Suhu badan (36,5°C), Berat badan (60,75 kg), Jarak tempuh (10,2 km).
+    * *Mentor Note*: Kontinu biasanya berasal dari alat ukur (timbangan, penggaris, termometer).
 
 
 
