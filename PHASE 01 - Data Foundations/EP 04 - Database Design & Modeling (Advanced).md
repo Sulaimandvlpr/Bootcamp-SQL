@@ -10,9 +10,9 @@ Sebelum menyentuh koding, kita harus menentukan "siapa" yang akan kita catat dat
 
 * **Entitas**: Objek dunia nyata yang unik. (Contoh: `Pelanggan`, `Produk`, `Transaksi`).
 * **Atribut**: Properti atau ciri khas yang melekat pada entitas tersebut.
-* *Simple Attribute*: Nama, Harga.
-* *Composite Attribute*: Alamat (yang bisa dipecah jadi Jalan, Kota, Kode Pos).
-* *Derived Attribute*: Atribut yang didapat dari perhitungan atribut lain (Contoh: `Umur` yang didapat dari `Tanggal Lahir`). **Mentor Note:** Di industri, atribut turunan biasanya tidak disimpan permanen agar menghemat memori.
+    * *Simple Attribute*: Nama, Harga.
+    * *Composite Attribute*: Alamat (yang bisa dipecah jadi Jalan, Kota, Kode Pos).
+    * *Derived Attribute*: Atribut yang didapat dari perhitungan atribut lain (Contoh: `Umur` yang didapat dari `Tanggal Lahir`). **Mentor Note:** Di industri, atribut turunan biasanya tidak disimpan permanen agar menghemat memori.
 
 
 
@@ -25,15 +25,15 @@ ERD adalah bahasa visual untuk melihat bagaimana data saling "berbicara". Standa
 ### Jenis Kardinalitas (Hubungan):
 
 1. **One-to-One (1:1)**: Jarang terjadi, biasanya untuk alasan keamanan.
-* *Case*: Satu `User` memiliki satu `User_Secret_Key`.
+    * *Case*: Satu `User` memiliki satu `User_Secret_Key`.
 
 
 2. **One-to-Many (1:N)**: Fondasi utama database relasional.
-* *Case*: Satu `Kategori` berisi banyak `Produk`.
+    * *Case*: Satu `Kategori` berisi banyak `Produk`.
 
 
 3. **Many-to-Many (M:N)**: Hubungan kompleks yang **HARUS** dipecah.
-* *Case*: Banyak `Pesanan` berisi banyak `Buku`.
+    * *Case*: Banyak `Pesanan` berisi banyak `Buku`.
 * **Solusi Mentor**: Kamu wajib menggunakan **Junction Table** (Tabel Perantara) untuk memecah M:N menjadi dua hubungan 1:N agar database tidak pusing mencari data.
 
 
