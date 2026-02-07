@@ -1,46 +1,80 @@
-## Mengapa Data Penting dalam Industri
+# Menentukan Keputusan dengan Data
 
-Menurut *The Council on Quality and Leadership*, data digunakan dalam industri karena alasan-alasan berikut:
-
-1. Meningkatkan kualitas kehidupan dan kesejahteraan.
-2. Mendukung pengambilan keputusan berbasis bukti.
-3. Memantau dan menjaga kualitas.
-4. Mengukur keberhasilan strategi dan hasil yang dicapai.
-5. Menemukan solusi atas permasalahan.
-6. Menjadi dasar argumen dalam perubahan sistem.
-7. Mengurangi keputusan berbasis asumsi.
-8. Membantu penyusunan strategi dan prioritas.
-9. Mengukur dan mengevaluasi kinerja.
-10. Menjaga organisasi tetap pada jalur tujuan.
-11. Mengoptimalkan biaya melalui praktik berbasis data.
-12. Memaksimalkan pemanfaatan sumber daya analisis data.
-
-> “You can’t manage what you don’t measure.”  
-> — Peter Drucker
+Salah satu fungsi utama data adalah membantu pengambilan keputusan. Contoh sederhana adalah memilih destinasi liburan berdasarkan rating dan ulasan. Semakin tinggi rating, semakin baik kualitasnya, sehingga keputusan dapat dibuat secara lebih rasional.
 
 ---
 
-## Tren Data Science di Industri
+## Mengapa Data Penting?
 
-- Menurut **Statista**, rata-rata jumlah data scientist di organisasi meningkat dari 28 menjadi 50 orang.
-- **Harvard Online** menyatakan data science membantu mengidentifikasi masalah dan menentukan data yang relevan untuk dianalisis.
-- **365Data Science** mencatat permintaan data scientist tertinggi berasal dari:
-  - IT & Tech: 49%
-  - Keuangan: 14%
-  - HR & Rekrutmen: 11%
-  - Industri: 4%
-  - Kesehatan: 3%
-  - Pertahanan: 2%
-  - Lainnya: sisanya
+Data tidak langsung menjadi informasi yang berguna. Data harus melalui proses pengolahan dan analisis agar dapat menghasilkan wawasan yang mendukung keputusan.
+
+Konsep ini dikenal sebagai **DIKW Pyramid**:
+
+### 1. Data
+Fakta mentah yang belum terorganisir dan belum memiliki makna.
+
+### 2. Informasi
+Data yang telah diolah sehingga menjadi lebih bermakna dan berguna.
+
+### 3. Knowledge (Pengetahuan)
+Gabungan data dan informasi yang diperkaya dengan pengalaman serta keahlian untuk membantu pengambilan keputusan.
+
+### 4. Wisdom (Kebijaksanaan)
+Kemampuan menggunakan pengetahuan untuk menentukan tindakan yang tepat dalam situasi tertentu.
+
+**Alur singkat:**  
+Data → Informasi → Pengetahuan → Keputusan yang bijak
+
+**Contoh:**
+- **Data:** Jumlah kendaraan di beberapa ruas jalan.  
+- **Informasi:** Diketahui waktu dan lokasi kemacetan tertinggi.  
+- **Pengetahuan:** Jam sibuk menjadi penyebab utama kemacetan.  
+- **Kebijaksanaan:** Mengatur lampu lalu lintas atau meningkatkan transportasi umum.
 
 ---
 
-## Peran di Dunia Data
+## Data-Driven Decision Making (DDDM)
 
-Berkarier di dunia data tidak terbatas pada peran **Data Scientist** saja. Posisi lain yang berkaitan antara lain:
-- Data Analyst
-- Senior Data Scientist
-- Project Leader
-- Peran lain yang membutuhkan kemampuan SQL, Python, analisis data, dan komunikasi
+**Data-Driven Decision Making (DDDM)** adalah pendekatan pengambilan keputusan berdasarkan fakta, metrik, dan analisis data agar selaras dengan tujuan bisnis.
 
-Mempelajari data science membuka banyak peluang lintas peran dan industri.
+### Fakta Industri
+- **98,6%** eksekutif ingin membangun budaya berbasis data, tetapi hanya **32,4%** yang berhasil.  
+- **70%** inisiatif modernisasi bisnis gagal karena fokus pada teknologi tanpa membangun budaya data.
+
+**Intinya:** Teknologi saja tidak cukup — organisasi harus memiliki budaya data.
+
+---
+
+## Mengapa DDDM Penting?
+
+- Membantu membuat strategi yang lebih tepat sasaran.  
+- Mengurangi keputusan berbasis intuisi atau asumsi.  
+- Mendukung pertumbuhan bisnis melalui analisis pasar.  
+
+Contoh: **49% profesional pemasaran menggunakan strategi berbasis data untuk meningkatkan jangkauan pelanggan.**
+
+---
+
+## Contoh Penerapan di Perusahaan
+
+**Google**  
+Menggunakan *people analytics* (Project Oxygen) dengan lebih dari 10.000 feedback untuk mengidentifikasi karakteristik manajer berkinerja tinggi.
+
+**Starbucks**  
+Memanfaatkan analitik lokasi (demografi dan pola lalu lintas) untuk menentukan lokasi toko yang berpotensi sukses.
+
+**Amazon**  
+Menggunakan analitik data dan machine learning untuk memberikan rekomendasi produk yang relevan kepada pelanggan.
+
+---
+
+## Manfaat Data-Driven Decision Making
+
+- **Lebih percaya diri dalam mengambil keputusan** karena berbasis data objektif.  
+- **Lebih proaktif** dalam menemukan peluang dan mendeteksi risiko lebih awal.  
+- **Menghemat biaya** melalui perencanaan dan alokasi anggaran yang lebih akurat.
+
+---
+
+## Kesimpulan
+Untuk menghasilkan keputusan yang tepat, data harus melalui proses pengolahan hingga menjadi wawasan. Organisasi yang menerapkan pendekatan berbasis data cenderung lebih strategis, efisien, dan siap menghadapi tantangan bisnis.
