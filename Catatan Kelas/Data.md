@@ -38,18 +38,18 @@ Data kualitatif adalah data yang berbentuk kategori atau sifat sehingga tidak di
 Data nominal adalah data kualitatif yang hanya berfungsi sebagai label atau penanda dan tidak memiliki urutan.
 
 **Contoh:**
-- Jenis kelamin (laki-laki, perempuan)  
-- Golongan darah (A, B, AB, O)  
-- Warna (merah, biru, hijau)  
 
+    - Jenis kelamin (laki-laki, perempuan)  
+    - Golongan darah (A, B, AB, O)  
+    - Warna (merah, biru, hijau)  
 Tidak ada kategori yang lebih tinggi atau lebih rendah.
 
 ### Data Ordinal
 Data ordinal adalah data kualitatif yang memiliki tingkatan atau urutan, tetapi jarak antar tingkat tidak dapat diukur secara pasti.
 
 **Contoh:**
-- Tingkat pendidikan (SD, SMP, SMA, kuliah)  
-- Tingkat kepuasan (puas, cukup puas, tidak puas)  
-- Peringkat lomba (juara 1, juara 2, juara 3)  
 
+    - Tingkat pendidikan (SD, SMP, SMA, kuliah)  
+    - Tingkat kepuasan (puas, cukup puas, tidak puas)  
+    - Peringkat lomba (juara 1, juara 2, juara 3)  
 Urutan penting, tetapi selisih antar kategori tidak diketahui secara pasti.
