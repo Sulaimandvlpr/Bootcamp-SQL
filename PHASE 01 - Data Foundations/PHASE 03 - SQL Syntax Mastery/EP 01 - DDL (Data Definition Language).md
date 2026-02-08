@@ -90,7 +90,7 @@ ALTER TABLE students RENAME TO data_siswa;
 
 ```sql
 
-ALTER TABLE data_siswa RENAME COLUMN phone_number TO whatsapp_number;
+ALTER TABLE student RENAME COLUMN phone_number TO whatsapp_number;
 
 ```
 
