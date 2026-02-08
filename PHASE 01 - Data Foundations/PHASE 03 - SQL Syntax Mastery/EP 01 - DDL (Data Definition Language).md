@@ -78,6 +78,21 @@ ALTER TABLE students ALTER COLUMN last_name TYPE VARCHAR(100);
 ALTER TABLE students DROP COLUMN gpa;
 
 ```
+### D. Mengubah Nama Tabel
+
+```sql
+
+ALTER TABLE students RENAME TO data_siswa;
+
+```
+
+### E. Mengubah Nama Kolom
+
+```sql
+
+ALTER TABLE data_siswa RENAME COLUMN phone_number TO whatsapp_number;
+
+```
 
 ---
 
