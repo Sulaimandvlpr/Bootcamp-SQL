@@ -96,7 +96,7 @@ DELETE FROM warung WHERE nama_produk LIKE 'Produk-5%';
 
 ```
 
-### B. Perbedaan `DELETE` vs `TRUNCATE` (Review Bab 3.1)
+### C. Perbedaan `DELETE` vs `TRUNCATE` (Review Bab 3.1)
 
 * **`DELETE`**: Menghapus baris demi baris, bisa difilter pakai `WHERE`, mencatat log aktivitas (lebih lambat tapi aman).
 * **`TRUNCATE`**: Menghapus seluruh isi tabel secara instan, tidak bisa pakai `WHERE`, tidak mencatat log baris (sangat cepat).
