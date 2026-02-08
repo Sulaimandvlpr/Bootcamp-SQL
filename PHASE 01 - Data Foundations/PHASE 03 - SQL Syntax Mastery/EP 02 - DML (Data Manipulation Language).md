@@ -85,6 +85,17 @@ WHERE email = 'siti.a@email.com';
 
 ```
 
+### B. Advanced Filtering dengan LIKE (Pencarian Pola)
+Operator LIKE digunakan bersama wildcard % untuk mencari pola teks. Ini sangat berguna untuk menghapus data sampah atau data uji coba secara massal.
+
+    % mewakili karakter apa pun (nol, satu, atau banyak).
+    
+``` sql
+
+DELETE FROM warung WHERE nama_produk LIKE 'Produk-5%';
+
+```
+
 ### B. Perbedaan `DELETE` vs `TRUNCATE` (Review Bab 3.1)
 
 * **`DELETE`**: Menghapus baris demi baris, bisa difilter pakai `WHERE`, mencatat log aktivitas (lebih lambat tapi aman).
