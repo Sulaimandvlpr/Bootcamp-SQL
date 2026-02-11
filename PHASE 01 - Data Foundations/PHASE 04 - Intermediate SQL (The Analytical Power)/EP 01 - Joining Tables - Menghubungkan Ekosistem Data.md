@@ -1,97 +1,366 @@
-## Joining Tables - Menghubungkan Ekosistem Data
+# Joining Tables — Menghubungkan Ekosistem Data
 
-Dalam database relasional, data dipecah-pecah (Normalisasi) untuk efisiensi. **JOIN** adalah mekanisme untuk menyatukan kembali data tersebut saat kita membutuhkannya untuk analisis.
+Dalam database relasional, data dipecah menjadi beberapa tabel (normalisasi) untuk:
 
----
+* Menghindari duplikasi data
+* Menjaga konsistensi
+* Meningkatkan efisiensi storage
 
-## 1. Visualisasi Logika JOIN (Venn Diagram)
-
-Memahami JOIN paling mudah dilakukan dengan membayangkan dua lingkaran (tabel) yang saling tumpang tindih.
-
-### A. INNER JOIN (Si Paling Eksklusif)
-
-Hanya mengambil baris data yang **memiliki kecocokan di kedua tabel**.
-
-* **Kasus**: "Tampilkan daftar pelanggan yang **pernah** melakukan transaksi." (Pelanggan yang belum pernah belanja tidak akan muncul).
-
-### B. LEFT (OUTER) JOIN (Si Paling Populer)
-
-Mengambil **semua data dari tabel kiri**, dan data yang cocok dari tabel kanan. Jika tidak ada kecocokan di tabel kanan, hasilnya akan berisi `NULL`.
-
-* **Kasus**: "Tampilkan **semua** pelanggan dan jumlah belanja mereka." (Pelanggan yang belum belanja tetap muncul dengan jumlah belanja `NULL`/kosong). **Ini sangat penting untuk mendeteksi pelanggan yang tidak aktif.**
-
-### C. RIGHT (OUTER) JOIN
-
-Kebalikan dari LEFT JOIN. Mengambil semua data dari tabel kanan. Jarang digunakan karena biasanya kita hanya menukar posisi tabel kiri dan kanan untuk tetap menggunakan LEFT JOIN agar kueri lebih mudah dibaca.
-
-### D. FULL OUTER JOIN
-
-Mengambil **semua data** dari kedua tabel, baik yang cocok maupun yang tidak. Sangat berguna untuk audit data guna menemukan rekaman yang "yatim piatu" di kedua sisi.
-
-### E. SELF JOIN
-
-Menggabungkan sebuah tabel dengan dirinya sendiri.
-
-* **Kasus**: Tabel karyawan yang memiliki kolom `manager_id`. Kita melakukan JOIN ke tabel itu sendiri untuk mengetahui siapa nama manajer dari setiap karyawan.
+Namun untuk analisis, data tersebut harus digabungkan kembali.
+Itulah fungsi utama dari **JOIN**.
 
 ---
 
-## 2. Struktur Sintaks Profesional
+# 0. Setup Contoh Data
 
-Gunakan *alias* tabel agar kueri kamu bersih dan tidak membingungkan mesin.
+Kita gunakan dua tabel sederhana.
+
+## Tabel `customers`
+
+| id | name  | city     |
+| -- | ----- | -------- |
+| 1  | Andi  | Jakarta  |
+| 2  | Budi  | Bandung  |
+| 3  | Citra | Surabaya |
+| 4  | Deni  | Medan    |
+
+## Tabel `orders`
+
+| id | customer_id | order_date | amount |
+| -- | ----------- | ---------- | ------ |
+| 1  | 1           | 2024-01-10 | 500000 |
+| 2  | 1           | 2024-02-15 | 300000 |
+| 3  | 2           | 2024-03-01 | 250000 |
+| 4  | 5           | 2024-04-01 | 100000 |
+
+Perhatikan:
+
+* Customer 3 dan 4 belum pernah order
+* Ada order dengan `customer_id = 5` (tidak ada di tabel customers)
+
+Ini akan membantu memahami setiap jenis JOIN.
+
+---
+
+# 1. INNER JOIN
+
+## Konsep
+
+Mengambil hanya data yang memiliki pasangan di kedua tabel.
+
+Artinya:
+
+* Jika tidak ada kecocokan → tidak muncul
+
+## Query
 
 ```sql
 SELECT 
-    p.nama_lengkap, 
-    t.tgl_transaksi, 
-    t.total_harga
-FROM pelanggan AS p
-INNER JOIN transaksi AS t 
-    ON p.id_pelanggan = t.id_pelanggan;
-
+    c.id,
+    c.name,
+    o.order_date,
+    o.amount
+FROM customers c
+INNER JOIN orders o
+    ON c.id = o.customer_id;
 ```
 
+## Output
+
+| id | name | order_date | amount |
+| -- | ---- | ---------- | ------ |
+| 1  | Andi | 2024-01-10 | 500000 |
+| 1  | Andi | 2024-02-15 | 300000 |
+| 2  | Budi | 2024-03-01 | 250000 |
+
+Penjelasan:
+
+* Citra dan Deni tidak muncul (tidak punya order)
+* Order dengan customer_id 5 tidak muncul (tidak punya pasangan di customers)
+
+INNER JOIN = irisan (intersection)
+
 ---
 
-## 3. Strategi JOIN pada Dataset Besar (Industry Standard)
+# 2. LEFT JOIN
 
-Saat bekerja di perusahaan dengan data harian jutaan baris, asal melakukan JOIN bisa membuat database *down* atau kueri berjalan berjam-jam. Berikut strateginya:
+## Konsep
 
-1. **Filter Dulu, JOIN Kemudian**: Jika hanya butuh data tahun 2024, filter tanggalnya sebelum melakukan JOIN ke tabel besar lainnya.
-2. **Perhatikan Index**: Pastikan kolom yang digunakan untuk menghubungkan (`ON table_a.id = table_b.id`) memiliki **Index**. Tanpa Index, database melakukan *Full Table Scan* yang sangat lambat.
-3. **Hati-hati dengan Many-to-Many**: Jika kamu melakukan JOIN pada kolom yang tidak unik di kedua sisi, kamu akan menghasilkan **Cartesian Product** (baris data meledak jumlahnya secara tidak terkendali).
+Ambil semua data dari tabel kiri, meskipun tidak ada pasangan di tabel kanan.
 
----
+Jika tidak ada pasangan → kolom tabel kanan menjadi NULL.
 
-## Sesi Mentor: Studi Kasus "Detecting Churn"
-
-Bayangkan manajer pemasaran bertanya: *"Berikan saya daftar pelanggan yang sudah mendaftar tapi belum pernah beli buku apapun, kita akan kirimkan voucher diskon."*
-
-Sebagai *Data Scientist*, kamu tidak bisa pakai `INNER JOIN`. Kamu butuh `LEFT JOIN` dan filter `IS NULL`.
+## Query
 
 ```sql
 SELECT 
-    p.id_pelanggan, 
-    p.nama, 
-    p.email
-FROM pelanggan AS p
-LEFT JOIN pesanan AS o 
-    ON p.id_pelanggan = o.id_pelanggan
-WHERE o.id_pesanan IS NULL; -- Mencari pelanggan yang tidak punya record di tabel pesanan
-
+    c.id,
+    c.name,
+    o.order_date,
+    o.amount
+FROM customers c
+LEFT JOIN orders o
+    ON c.id = o.customer_id;
 ```
 
+## Output
+
+| id | name  | order_date | amount |
+| -- | ----- | ---------- | ------ |
+| 1  | Andi  | 2024-01-10 | 500000 |
+| 1  | Andi  | 2024-02-15 | 300000 |
+| 2  | Budi  | 2024-03-01 | 250000 |
+| 3  | Citra | NULL       | NULL   |
+| 4  | Deni  | NULL       | NULL   |
+
+Penjelasan:
+
+* Semua customer muncul
+* Yang tidak punya order → NULL
+
+Ini sangat penting untuk:
+
+* Analisis churn
+* Analisis user tidak aktif
+* Data completeness check
+
 ---
 
-## Perbedaan JOIN dan UNION (Sering Salah Paham)
+# 3. RIGHT JOIN
 
-Mentor sering melihat pemula bingung antara JOIN dan UNION.
+Kebalikan dari LEFT JOIN.
 
-* **JOIN**: Menggabungkan tabel secara **Horizontal** (menambah kolom ke samping). Menghubungkan pelanggan dengan alamatnya.
-* **UNION**: Menggabungkan tabel secara **Vertikal** (menambah baris ke bawah). Menggabungkan daftar pelanggan dari cabang Jakarta dan cabang Surabaya menjadi satu daftar panjang.
+Ambil semua data dari tabel kanan.
+
+## Query
+
+```sql
+SELECT 
+    c.id,
+    c.name,
+    o.order_date,
+    o.amount
+FROM customers c
+RIGHT JOIN orders o
+    ON c.id = o.customer_id;
+```
+
+## Output
+
+| id   | name | order_date | amount |
+| ---- | ---- | ---------- | ------ |
+| 1    | Andi | 2024-01-10 | 500000 |
+| 1    | Andi | 2024-02-15 | 300000 |
+| 2    | Budi | 2024-03-01 | 250000 |
+| NULL | NULL | 2024-04-01 | 100000 |
+
+Penjelasan:
+
+* Order dengan customer_id 5 tetap muncul
+* Karena tidak ada customer yang cocok → kolom customer NULL
+
+Di industri, RIGHT JOIN jarang dipakai.
+Biasanya cukup tukar posisi tabel dan gunakan LEFT JOIN.
 
 ---
 
-### Kesimpulan Mentor
+# 4. FULL OUTER JOIN
 
-Kemampuan JOIN adalah pemisah antara pengguna SQL amatir dan profesional. Jangan hanya dihafalkan kuerinya, tapi pahami **aliran datanya**. Gunakan `LEFT JOIN` sebagai *default* jika kamu ragu apakah semua data memiliki pasangan, karena data yang hilang jauh lebih berbahaya daripada data yang berisi `NULL`.
+Mengambil semua data dari kedua tabel.
+
+## Query
+
+```sql
+SELECT 
+    c.id,
+    c.name,
+    o.order_date,
+    o.amount
+FROM customers c
+FULL OUTER JOIN orders o
+    ON c.id = o.customer_id;
+```
+
+## Output
+
+| id   | name  | order_date | amount |
+| ---- | ----- | ---------- | ------ |
+| 1    | Andi  | 2024-01-10 | 500000 |
+| 1    | Andi  | 2024-02-15 | 300000 |
+| 2    | Budi  | 2024-03-01 | 250000 |
+| 3    | Citra | NULL       | NULL   |
+| 4    | Deni  | NULL       | NULL   |
+| NULL | NULL  | 2024-04-01 | 100000 |
+
+Digunakan untuk:
+
+* Data reconciliation
+* Audit data mismatch
+* Sinkronisasi sistem
+
+---
+
+# 5. SELF JOIN
+
+Menggabungkan tabel dengan dirinya sendiri.
+
+Contoh:
+
+## Tabel `employees`
+
+| id | name | manager_id |
+| -- | ---- | ---------- |
+| 1  | Rina | NULL       |
+| 2  | Tono | 1          |
+| 3  | Sari | 1          |
+
+## Query
+
+```sql
+SELECT 
+    e.name AS employee_name,
+    m.name AS manager_name
+FROM employees e
+LEFT JOIN employees m
+    ON e.manager_id = m.id;
+```
+
+## Output
+
+| employee_name | manager_name |
+| ------------- | ------------ |
+| Rina          | NULL         |
+| Tono          | Rina         |
+| Sari          | Rina         |
+
+Ini digunakan untuk:
+
+* Hierarki organisasi
+* Struktur kategori bertingkat
+* Relationship parent-child
+
+---
+
+# 6. JOIN + Aggregation (Level Analyst)
+
+Misalnya ingin total belanja per customer.
+
+```sql
+SELECT 
+    c.name,
+    SUM(o.amount) AS total_spent
+FROM customers c
+LEFT JOIN orders o
+    ON c.id = o.customer_id
+GROUP BY c.name;
+```
+
+Output:
+
+| name  | total_spent |
+| ----- | ----------- |
+| Andi  | 800000      |
+| Budi  | 250000      |
+| Citra | NULL        |
+| Deni  | NULL        |
+
+Biasanya ditambahkan:
+
+```sql
+COALESCE(SUM(o.amount), 0) AS total_spent
+```
+
+Agar NULL menjadi 0.
+
+---
+
+# 7. JOIN vs UNION
+
+## JOIN
+
+Menggabungkan secara horizontal (menambah kolom).
+
+Contoh:
+
+customer + orders → jadi satu baris lengkap
+
+---
+
+## UNION
+
+Menggabungkan secara vertikal (menambah baris).
+
+Contoh:
+
+```sql
+SELECT name FROM customers_jakarta
+UNION
+SELECT name FROM customers_bandung;
+```
+
+Output:
+
+Daftar panjang gabungan dua cabang.
+
+---
+
+# 8. Industry-Level Warning: Cartesian Explosion
+
+Jika kamu JOIN dua tabel tanpa kondisi:
+
+```sql
+SELECT *
+FROM customers
+JOIN orders;
+```
+
+Maka akan terjadi:
+
+Cartesian Product
+Semua baris customers dikalikan semua baris orders.
+
+Jika:
+
+* customers = 1 juta
+* orders = 10 juta
+
+Hasil bisa 10 triliun baris.
+
+Database bisa crash.
+
+Karena itu selalu gunakan ON condition yang benar.
+
+---
+
+# 9. Mental Model Profesional
+
+Sebelum menulis JOIN, tanyakan:
+
+1. Apa tabel utama?
+2. Apakah semua data harus muncul?
+3. Apakah relationship 1-to-1, 1-to-many, atau many-to-many?
+4. Apakah ada risiko duplikasi?
+
+JOIN bukan sekadar sintaks.
+JOIN adalah desain aliran data.
+
+---
+
+# Kesimpulan
+
+INNER JOIN
+→ Ketika hanya ingin data yang valid dan memiliki pasangan.
+
+LEFT JOIN
+→ Default paling aman untuk analisis.
+
+RIGHT JOIN
+→ Jarang dipakai, bisa diganti dengan LEFT JOIN.
+
+FULL OUTER JOIN
+→ Audit dan rekonsiliasi data.
+
+SELF JOIN
+→ Hierarki dan relasi internal.
+
+Kemampuan memahami JOIN secara konseptual adalah fondasi penting untuk menjadi Data Analyst, Data Engineer, maupun Data Scientist.
